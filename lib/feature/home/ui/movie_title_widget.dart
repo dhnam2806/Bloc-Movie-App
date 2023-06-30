@@ -1,16 +1,28 @@
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
+import 'package:movie_app/feature/home/bloc/home_bloc.dart';
+import 'package:movie_app/feature/movies/models/movies_model.dart';
 
-// class MovieTitle extends StatefulWidget {
-//   const MovieTitle({super.key});
+class MovieTitle extends StatelessWidget {
+  final MovieModels moviesModel;
 
-//   @override
-//   State<MovieTitle> createState() => _MovieTitleState();
-// }
+  final HomeBloc homeBloc;
 
-// class _MovieTitleState extends State<MovieTitle> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return ;
-//   }
-// }
+  const MovieTitle(
+      {super.key, required this.moviesModel, required this.homeBloc});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 400,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Image.network(
+          'https://image.tmdb.org/t/p/w500/${moviesModel.posterPath}',
+          height: 240,
+          width: 160,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+}
