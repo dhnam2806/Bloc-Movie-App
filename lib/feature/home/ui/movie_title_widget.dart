@@ -3,7 +3,7 @@ import 'package:movie_app/feature/home/bloc/home_bloc.dart';
 import 'package:movie_app/feature/movies/models/movies_model.dart';
 
 class MovieTitle extends StatelessWidget {
-  final MovieModels moviesModel;
+  final List<MovieModels> moviesModel;
 
   final HomeBloc homeBloc;
 
@@ -13,15 +13,26 @@ class MovieTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Image.network(
-          'https://image.tmdb.org/t/p/w500/${moviesModel.posterPath}',
-          height: 240,
-          width: 160,
-          fit: BoxFit.cover,
-        ),
+      height: 280,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: moviesModel.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            child: Container(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  'https://image.tmdb.org/t/p/w500/${moviesModel[index].posterPath}',
+                  height: 240,
+                  width: 160,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

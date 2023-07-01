@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/feature/home/bloc/home_bloc.dart';
 import 'package:movie_app/feature/home/ui/movie_title_widget.dart';
-import 'package:movie_app/feature/movies/models/movies_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,24 +49,29 @@ class _HomePageState extends State<HomePage> {
                 title: Text("Movie App"),
                 centerTitle: true,
               ),
-              body: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: successState.moviesModel.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0, top: 8.0),
-                        child: Container(
-                          height: 240,
-                          child: MovieTitle(
-                              moviesModel: successState.moviesModel[index],
-                              homeBloc: homeBloc),
-                        ),
-                      ),
-                    ],
-                  );
-                },
+              body: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "Popular Movies",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  MovieTitle(
+                      moviesModel: successState.popularMovies,
+                      homeBloc: homeBloc),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("Trending Movies",
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  MovieTitle(
+                      moviesModel: successState.trendingMovies,
+                      homeBloc: homeBloc),
+                ],
               ),
             );
           default:
