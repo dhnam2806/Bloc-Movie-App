@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/feature/home/bloc/home_bloc.dart';
 import 'package:movie_app/feature/home/ui/movie_title_widget.dart';
+import 'package:movie_app/feature/movie_detail/ui/movie_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,9 +22,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocConsumer<HomeBloc, HomeState>(
       bloc: homeBloc,
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is HomeMovieClickedState) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => MovieDetailPage(movie: state.movieId)));
+        }
+      },
       listenWhen: (previous, current) => current is HomeActionState,
       buildWhen: (previous, current) => current is! HomeActionState,
       builder: (context, state) {
@@ -46,32 +53,53 @@ class _HomePageState extends State<HomePage> {
             final successState = state as HomeLoadingSuccessState;
             return Scaffold(
               appBar: AppBar(
-                title: Text("Movie App"),
+                title: RichText(
+                  text: TextSpan(
+                    text: "Movie",
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red),
+                    children: [
+                      TextSpan(
+                        text: "App",
+                        style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
                 centerTitle: true,
               ),
-              body: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "Popular Movies",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  MovieTitle(
-                      moviesModel: successState.popularMovies,
-                      homeBloc: homeBloc),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text("Trending Movies",
+              body: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "Popular Movies",
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                  MovieTitle(
-                      moviesModel: successState.trendingMovies,
-                      homeBloc: homeBloc),
-                ],
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    MovieTitle(
+                        moviesModel: successState.popularMovies,
+                        homeBloc: homeBloc),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text("Trending Movies",
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold)),
+                    MovieTitle(
+                        moviesModel: successState.trendingMovies,
+                        homeBloc: homeBloc),
+                  ],
+                ),
               ),
             );
           default:

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -12,8 +13,8 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeInitialEvent>(homeInitialEvent);
-
-  }   
+    on<HomeMovieClickedEvent>(homeMovieClickedEvent);
+  }
 
   FutureOr<void> homeInitialEvent(
       HomeInitialEvent event, Emitter<HomeState> emit) async {
@@ -23,5 +24,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     emit(HomeLoadingSuccessState(
         popularMovies: moviesPopular, trendingMovies: moviesTrending));
+  }
+
+  FutureOr<void> homeMovieClickedEvent(
+      HomeMovieClickedEvent event, Emitter<HomeState> emit) {
+    emit(HomeMovieClickedState(movieId: event.movieId));
+    // emit(NavigateToMovieDetailState());
   }
 }

@@ -20,3 +20,13 @@ class HomeLoadingSuccessState extends HomeState {
 }
 
 class HomeLoadingErrorState extends HomeState {}
+
+class HomeMovieClickedState extends HomeActionState {
+  final MovieModels movieId;
+
+  HomeMovieClickedState({required this.movieId});
+}
+
+class NavigateToMovieDetailState extends HomeActionState {}
+
+
