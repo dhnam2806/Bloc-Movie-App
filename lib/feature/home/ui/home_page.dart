@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/feature/home/bloc/home_bloc.dart';
@@ -22,13 +23,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocConsumer<HomeBloc, HomeState>(
       bloc: homeBloc,
       listener: (context, state) {
         if (state is HomeMovieClickedState) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MovieDetailPage(movie: state.movieId)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MovieDetailPage(movie: state.movieId)));
         }
       },
       listenWhen: (previous, current) => current is HomeActionState,
@@ -75,30 +77,59 @@ class _HomePageState extends State<HomePage> {
               ),
               body: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      "Popular Movies",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                    MovieTitle(
-                        moviesModel: successState.popularMovies,
-                        homeBloc: homeBloc),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text("Trending Movies",
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CarouselSlider(
+                        items: successState.popularMovies
+                            .map((e) => GestureDetector(
+                              onTap: () => homeBloc.add(HomeMovieClickedEvent(movieId: e)),
+                              child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              'https://image.tmdb.org/t/p/w500/${e.fullPosterPath}'),
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                            ))
+                            .toList(),
+                        options: CarouselOptions(
+                          height: 400,
+                          // aspectRatio: 14 / 9,
+                          viewportFraction: .8,
+                          initialPage: 0,
+                          autoPlay: true,
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          onPageChanged: (index, reason) {},
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        "Popular Movies",
                         style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
-                    MovieTitle(
-                        moviesModel: successState.trendingMovies,
-                        homeBloc: homeBloc),
-                  ],
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      MovieTitle(
+                          moviesModel: successState.popularMovies,
+                          homeBloc: homeBloc),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text("Trending Movies",
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold)),
+                      MovieTitle(
+                          moviesModel: successState.trendingMovies,
+                          homeBloc: homeBloc),
+                    ],
+                  ),
                 ),
               ),
             );

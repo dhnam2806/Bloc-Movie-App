@@ -38,6 +38,7 @@ dependencies:
   http:
   bloc:
   flutter_bloc:
+  carousel_slider: ^4.2.1
   
 
 dev_dependencies:

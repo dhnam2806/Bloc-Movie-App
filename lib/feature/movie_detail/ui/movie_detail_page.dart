@@ -19,6 +19,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     movieDetailBloc.add(MovieDetailInitialEvent(movie_id: widget.movie));
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MovieDetailBloc, MovieDetailState>(
@@ -46,6 +47,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             return Scaffold(
                 appBar: AppBar(
                   title: Text("Movie Detail"),
+                  centerTitle: false,
                 ),
                 body: SingleChildScrollView(
                   child: Container(
