@@ -21,17 +21,16 @@ class MovieTitle extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               homeBloc.add(HomeMovieClickedEvent(movieId: moviesModel[index]));
-              // homeBloc.add(NavigateToMovieDetailEvent());
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: Container(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
                     'https://image.tmdb.org/t/p/w500/${moviesModel[index].posterPath}',
                     height: 240,
-                    width: 160,
+                    width: 168,
                     fit: BoxFit.cover,
                   ),
                 ),

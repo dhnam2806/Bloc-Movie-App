@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/feature/google_navbar.dart';
 
 import 'feature/home/ui/home_page.dart';
 
@@ -26,11 +27,12 @@ class MyApp extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ))),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
-      ),
-      home: HomePage(),
+      // darkTheme: ThemeData(
+      //   brightness: Brightness.dark,
+      //   scaffoldBackgroundColor: Colors.black,
+      // ),
+      // home: HomePage(),
+      home: GNavBar(),
     );
   }
 }

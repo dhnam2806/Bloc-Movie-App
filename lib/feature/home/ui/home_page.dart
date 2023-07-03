@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/feature/home/bloc/home_bloc.dart';
+import 'package:movie_app/feature/home/ui/carousel_slider.dart';
 import 'package:movie_app/feature/home/ui/movie_title_widget.dart';
 import 'package:movie_app/feature/movie_detail/ui/movie_detail_page.dart';
 
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    int currentIndex = 0;
     return BlocConsumer<HomeBloc, HomeState>(
       bloc: homeBloc,
       listener: (context, state) {
@@ -74,45 +76,39 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 centerTitle: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(24),
+                      bottomRight: Radius.circular(24)),
+                ),
               ),
               body: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(2.0),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CarouselSlider(
-                        items: successState.popularMovies
-                            .map((e) => GestureDetector(
-                              onTap: () => homeBloc.add(HomeMovieClickedEvent(movieId: e)),
-                              child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                              'https://image.tmdb.org/t/p/w500/${e.fullPosterPath}'),
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ),
-                            ))
-                            .toList(),
-                        options: CarouselOptions(
-                          height: 400,
-                          // aspectRatio: 14 / 9,
-                          viewportFraction: .8,
-                          initialPage: 0,
-                          autoPlay: true,
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          enlargeCenterPage: true,
-                          onPageChanged: (index, reason) {},
-                          scrollDirection: Axis.horizontal,
-                        ),
-                      ),
+                      Text("Now Playing",
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold)),
+                      SizedBox(height: 16),
+                      CarouselSliderWidget(
+                          movieModels: successState.nowPlayingMovies,
+                          homeBloc: homeBloc),
                       SizedBox(
-                        height: 12,
+                        height: 16,
+                      ),
+                      Text("Top Rated",
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold)),
+                      MovieTitle(
+                          moviesModel: successState.topRatedMovies,
+                          homeBloc: homeBloc),
+                      SizedBox(
+                        height: 20,
                       ),
                       Text(
-                        "Popular Movies",
+                        "Popular",
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
@@ -122,12 +118,15 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 20,
                       ),
-                      Text("Trending Movies",
+                      Text("Trending",
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold)),
                       MovieTitle(
                           moviesModel: successState.trendingMovies,
                           homeBloc: homeBloc),
+                      SizedBox(
+                        height: 20,
+                      ),
                     ],
                   ),
                 ),
