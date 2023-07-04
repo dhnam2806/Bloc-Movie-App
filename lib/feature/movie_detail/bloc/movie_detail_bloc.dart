@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:movie_app/feature/movies/models/cast_model.dart';
 import 'package:movie_app/feature/movies/models/movies_model.dart';
 import 'package:movie_app/feature/movies/repository/movie_repo.dart';
 
@@ -14,9 +15,9 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   }
 
   FutureOr<void> movieDetailInitialEvent(
-      MovieDetailInitialEvent event, Emitter<MovieDetailState> emit) {
+      MovieDetailInitialEvent event, Emitter<MovieDetailState> emit) async{
     emit(MovieDetailLoadingState());
-    // List<MovieModels> moviesDetail = await MovieRepo().getMovieDetail(event.movie_id);
-    emit(MovieDetailLoadingSuccessState(movieDetail: event.movie_id));
+    List<CastModels> cast = await MovieRepo().movieCast(event.movie_id.id);
+    emit(MovieDetailLoadingSuccessState(movieDetail: event.movie_id, cast: cast,));
   }
 }

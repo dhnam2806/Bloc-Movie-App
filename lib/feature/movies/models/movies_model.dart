@@ -1,5 +1,5 @@
 class MovieModels {
-  late final int id;
+  final int id;
   final String title;
   final String posterPath;
   final String backdropPath;
