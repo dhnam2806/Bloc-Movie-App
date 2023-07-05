@@ -11,3 +11,4 @@ class MovieDetailInitialEvent extends MovieDetailEvent {
     required this.movie_id,
   });
 }
+

@@ -1,8 +1,8 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:movie_app/feature/movies/models/movies_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/feature/movies/models/video_model.dart';
 
 import '../models/cast_model.dart';
 
@@ -16,25 +16,6 @@ class MovieRepo {
     try {
       final response = await client.get(
         Uri.parse('$_baseUrl/movie/$type?api_key=$_apiKey'),
-      );
-      var data = json.decode(response.body);
-      List results = data['results'];
-      for (int i = 0; i < results.length; i++) {
-        movies.add(MovieModels.fromJson(results[i]));
-      }
-      return movies;
-    } catch (e) {
-      print(e.toString());
-    }
-    return [];
-  }
-
-  Future<List<MovieModels>> getDiscoverMovies() async {
-    var client = http.Client();
-    List<MovieModels> movies = [];
-    try {
-      final response = await client.get(
-        Uri.parse('$_baseUrl/discover/movie?api_key=$_apiKey'),
       );
       var data = json.decode(response.body);
       List results = data['results'];
@@ -114,4 +95,35 @@ class MovieRepo {
     }
     return [];
   }
+
+  Future<List<VideoModel>> movieVideo(int movieId) async {
+    var client = http.Client();
+    try {
+      final response = await client.get(
+        Uri.parse('$_baseUrl/movie/$movieId/videos?api_key=$_apiKey'),
+      );
+      final List<dynamic> jsonList = json.decode(response.body)['results'];
+    
+      return jsonList.map((json) => VideoModel.fromJson(json)).toList();
+    } catch (e) {
+      print(e.toString());
+    }
+    return [];
+  }
+
+  // Future<VideoModel> getVideo(int movieId) async {
+  //   var client = http.Client();
+  //   final response = await client
+  //       .get(Uri.parse('$_baseUrl/movie/$movieId/videos?api_key=$_apiKey'));
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> jsonList = json.decode(response.body)['results'];
+  //     return jsonList.map((json) => VideoModel.fromJson(json)).toList();
+  //     // final jsonData = jsonDecode(response.body);
+  //     // final videoKey = jsonData['results'][0]['key'];
+
+  //     // return 'https://www.youtube.com/watch?v=$videoKey';
+  //   } else {
+  //     throw Exception('Failed to fetch movie video');
+  //   }
+  // }
 }

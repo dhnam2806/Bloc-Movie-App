@@ -14,14 +14,12 @@ class HomeErrorState extends HomeState {}
 class HomeLoadingSuccessState extends HomeState {
   final List<MovieModels> popularMovies;
   final List<MovieModels> trendingMovies;
-  final List<MovieModels> discoverMovies;
   final List<MovieModels> nowPlayingMovies;
   final List<MovieModels> topRatedMovies;
 
   HomeLoadingSuccessState(
       {required this.popularMovies,
       required this.trendingMovies,
-      required this.discoverMovies,
       required this.nowPlayingMovies,
       required this.topRatedMovies});
 }

@@ -23,13 +23,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     List<MovieModels> nowPlayingMovies =
         await MovieRepo().getMovies("now_playing");
     List<MovieModels> moviesTrending = await MovieRepo().getTrendingMovies();
-    List<MovieModels> discoverMovies = await MovieRepo().getDiscoverMovies();
     List<MovieModels> moviesTopRated = await MovieRepo().getMovies("top_rated");
 
     emit(HomeLoadingSuccessState(
       popularMovies: moviesPopular,
       trendingMovies: moviesTrending,
-      discoverMovies: discoverMovies,
       nowPlayingMovies: nowPlayingMovies,
       topRatedMovies: moviesTopRated,
     ));

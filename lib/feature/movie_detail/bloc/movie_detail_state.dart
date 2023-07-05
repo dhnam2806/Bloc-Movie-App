@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 part of 'movie_detail_bloc.dart';
 
 @immutable
@@ -15,9 +16,11 @@ class MovieDetailErrorState extends MovieDetailState {}
 class MovieDetailLoadingSuccessState extends MovieDetailState {
   final MovieModels movieDetail;
   final List<CastModels> cast;
+  final List<VideoModel> video;
 
   MovieDetailLoadingSuccessState({
     required this.movieDetail,
     required this.cast,
+    required this.video,
   });
 }

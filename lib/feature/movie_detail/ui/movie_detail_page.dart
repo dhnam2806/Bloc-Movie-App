@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/feature/movie_detail/bloc/movie_detail_bloc.dart';
 import 'package:movie_app/feature/movie_detail/ui/cast_widget.dart';
 import 'package:movie_app/feature/movie_detail/ui/circle_vote_widget.dart';
+import 'package:movie_app/feature/movie_detail/ui/watch_trailer_widget.dart';
 import 'package:movie_app/feature/movies/models/movies_model.dart';
 
 class MovieDetailPage extends StatefulWidget {
@@ -46,10 +47,10 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           case MovieDetailLoadingSuccessState:
             var successState = (state as MovieDetailLoadingSuccessState);
             return Scaffold(
-              // appBar: AppBar(
-              //   title: Text("Movie Detail"),
-              //   centerTitle: false,
-              // ),
+              appBar: AppBar(
+                elevation: 0,
+                scrolledUnderElevation: 0,
+              ),
               body: SafeArea(
                   child: SingleChildScrollView(
                 child: Column(
@@ -105,11 +106,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 16),
+                            SizedBox(height: 12),
                             Container(
                               child: Text(
                                 successState.movieDetail.releaseDate,
                                 style: TextStyle(
+                                  color: Colors.white60,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -135,7 +137,18 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               ),
                             ),
                             SizedBox(height: 12),
-                            CastWidget(castList: successState.cast)
+                            CastWidget(castList: successState.cast),
+                            SizedBox(height: 4),
+                            Text(
+                              "Trailer",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 12),
+                            WatchTrailerWidget(
+                                videoId: successState.video[0].key!)
                           ]),
                     ))
                   ],
