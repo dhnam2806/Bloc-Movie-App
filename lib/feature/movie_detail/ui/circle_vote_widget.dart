@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CircleVoteAverage extends StatelessWidget {
+class CircleVoteAverageWidget extends StatelessWidget {
   final double voteAverage;
 
-  const CircleVoteAverage({
+  const CircleVoteAverageWidget({
     required this.voteAverage,
   });
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/feature/home/bloc/home_bloc.dart';
-import 'package:movie_app/feature/movies/models/movies_model.dart';
+import 'package:movie_app/data/models/movies_model.dart';
 
 class MovieTitle extends StatelessWidget {
   final List<MovieModels> moviesModel;

@@ -12,3 +12,7 @@ class MovieDetailInitialEvent extends MovieDetailEvent {
   });
 }
 
+class MovieDetailActionEvent extends MovieDetailEvent {}
+
+
+

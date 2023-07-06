@@ -3,9 +3,9 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:movie_app/feature/movies/repository/movie_repo.dart';
+import 'package:movie_app/repository/movie_repo.dart';
 
-import '../../movies/models/movies_model.dart';
+import '../../../data/models/movies_model.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';

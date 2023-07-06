@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:movie_app/feature/movies/models/cast_model.dart';
+import 'package:movie_app/data/models/cast_model.dart';
 
 class CastWidget extends StatelessWidget {
   final List<CastModels> castList;

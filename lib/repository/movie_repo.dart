@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:movie_app/feature/movies/models/movies_model.dart';
+import 'package:movie_app/data/models/movies_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_app/feature/movies/models/video_model.dart';
+import 'package:movie_app/data/models/video_model.dart';
 
-import '../models/cast_model.dart';
+import '../data/models/cast_model.dart';
 
 class MovieRepo {
   static const String _baseUrl = 'https://api.themoviedb.org/3';

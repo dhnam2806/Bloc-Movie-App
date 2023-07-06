@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:movie_app/feature/movies/models/cast_model.dart';
-import 'package:movie_app/feature/movies/models/movies_model.dart';
-import 'package:movie_app/feature/movies/models/video_model.dart';
-import 'package:movie_app/feature/movies/repository/movie_repo.dart';
+import 'package:movie_app/data/models/cast_model.dart';
+import 'package:movie_app/data/models/movies_model.dart';
+import 'package:movie_app/data/models/video_model.dart';
+import 'package:movie_app/repository/movie_repo.dart';
 
 part 'movie_detail_event.dart';
 part 'movie_detail_state.dart';
