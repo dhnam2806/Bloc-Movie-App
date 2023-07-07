@@ -29,7 +29,7 @@ class CircleVoteAverageWidget extends StatelessWidget {
                   : (percentage > 0.6 ? Colors.orange : Colors.red)),
             ),
             Text(
-              voteAverage.toString(),
+              voteAverage.toStringAsFixed(1),
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,

@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:movie_app/data/models/movies_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/data/models/video_model.dart';
-
 import '../data/models/cast_model.dart';
 
 class MovieRepo {
@@ -24,9 +22,8 @@ class MovieRepo {
       }
       return movies;
     } catch (e) {
-      print(e.toString());
+      throw Exception(e);
     }
-    return [];
   }
 
   Future<List<MovieModels>> getTrendingMovies() async {
@@ -43,9 +40,8 @@ class MovieRepo {
       }
       return movies;
     } catch (e) {
-      print(e.toString());
+      throw Exception(e);
     }
-    return [];
   }
 
   Future<List<MovieModels>> getMovieDetail(var movie_id) async {
@@ -58,9 +54,8 @@ class MovieRepo {
       final List<dynamic> jsonList = json.decode(response.body)['results'];
       return jsonList.map((json) => MovieModels.fromJson(json)).toList();
     } catch (e) {
-      print(e.toString());
+      throw Exception(e);
     }
-    return [];
   }
 
   Future<List<MovieModels>> searchMovie(String query) async {
@@ -77,9 +72,8 @@ class MovieRepo {
       }
       return movies;
     } catch (e) {
-      print(e.toString());
+      throw Exception(e);
     }
-    return [];
   }
 
   Future<List<CastModels>> movieCast(int movieId) async {
@@ -91,9 +85,9 @@ class MovieRepo {
       final List<dynamic> jsonList = json.decode(response.body)['cast'];
       return jsonList.map((json) => CastModels.fromJson(json)).toList();
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
+      throw Exception(e);
     }
-    return [];
   }
 
   Future<List<VideoModel>> movieVideo(int movieId) async {
@@ -103,27 +97,10 @@ class MovieRepo {
         Uri.parse('$_baseUrl/movie/$movieId/videos?api_key=$_apiKey'),
       );
       final List<dynamic> jsonList = json.decode(response.body)['results'];
-    
+
       return jsonList.map((json) => VideoModel.fromJson(json)).toList();
     } catch (e) {
-      print(e.toString());
+      throw Exception(e);
     }
-    return [];
   }
-
-  // Future<VideoModel> getVideo(int movieId) async {
-  //   var client = http.Client();
-  //   final response = await client
-  //       .get(Uri.parse('$_baseUrl/movie/$movieId/videos?api_key=$_apiKey'));
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> jsonList = json.decode(response.body)['results'];
-  //     return jsonList.map((json) => VideoModel.fromJson(json)).toList();
-  //     // final jsonData = jsonDecode(response.body);
-  //     // final videoKey = jsonData['results'][0]['key'];
-
-  //     // return 'https://www.youtube.com/watch?v=$videoKey';
-  //   } else {
-  //     throw Exception('Failed to fetch movie video');
-  //   }
-  // }
 }

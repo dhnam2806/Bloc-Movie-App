@@ -1,32 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class WatchTrailerWidget extends StatefulWidget {
+class WatchTrailerWidget extends StatelessWidget {
   final String videoId;
   WatchTrailerWidget({required this.videoId});
 
   @override
-  State<WatchTrailerWidget> createState() => _WatchTrailerWidgetState();
-}
-
-class _WatchTrailerWidgetState extends State<WatchTrailerWidget> {
-
-  @override
   Widget build(BuildContext context) {
     YoutubePlayerController controller = YoutubePlayerController(
-      initialVideoId: widget.videoId,
+      initialVideoId: videoId,
       flags: YoutubePlayerFlags(
-        autoPlay: false,
+        autoPlay: true,
         mute: false,
       ),
     );
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Trailer"),
       ),
-      child: YoutubePlayer(
-        controller: controller,
-        showVideoProgressIndicator: false,
+      body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: YoutubePlayer(
+            controlsTimeOut: Duration(seconds: 1),
+            controller: controller,
+            showVideoProgressIndicator: false,
+          ),
+        ),
       ),
     );
   }

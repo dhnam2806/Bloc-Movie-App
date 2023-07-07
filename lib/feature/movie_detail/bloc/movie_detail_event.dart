@@ -12,7 +12,13 @@ class MovieDetailInitialEvent extends MovieDetailEvent {
   });
 }
 
-class MovieDetailActionEvent extends MovieDetailEvent {}
+class WatchTrailerNavigateEvent extends MovieDetailEvent {
+  final MovieModels movie_id;
+
+  WatchTrailerNavigateEvent({
+    required this.movie_id,
+  });
+}
 
 
 

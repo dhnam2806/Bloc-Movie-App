@@ -24,3 +24,9 @@ class MovieDetailLoadingSuccessState extends MovieDetailState {
     required this.video,
   });
 }
+
+class WatchTrailerNavigateState extends MovieDetailActionState {
+  final String videoId;
+
+  WatchTrailerNavigateState({required this.videoId});
+}
