@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:movie_app/data/models/movies_model.dart';
-import 'package:movie_app/data/models/search_movie_models.dart';
 import 'package:http/http.dart' as http;
 
 class SearchRepo {
@@ -14,18 +12,17 @@ class SearchRepo {
     List<MovieModels> search = [];
     try {
       final response = await client.get(
-        Uri.parse('$_baseUrl/search/multi?api_key=$_apiKey&query=$query'),
+        Uri.parse('$_baseUrl/search/movie?api_key=$_apiKey&query=$query'),
       );
       var data = json.decode(response.body);
       List results = data['results'];
       for (int i = 0; i < results.length; i++) {
         search.add(MovieModels.fromJson(results[i]));
       }
-      debugPrint('search' + search.toString());
+      print('search: ' + search.toString());
       return search;
     } catch (e) {
-      print(e.toString());
+      throw Exception(e);
     }
-    return [];
   }
 }

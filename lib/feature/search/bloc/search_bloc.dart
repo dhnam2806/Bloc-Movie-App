@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -11,11 +12,21 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchInitial()) {
     on<SearchInitialEvent>(searchInitialEvent);
+    on<SearchQueryEvent>(searchQueryEvent);
   }
 
-  FutureOr<void> searchInitialEvent(SearchInitialEvent event, Emitter<SearchState> emit)async{
+  FutureOr<void> searchInitialEvent(
+      SearchInitialEvent event, Emitter<SearchState> emit) {
     emit(SearchLoadingState());
-    List<MovieModels> movieList = await SearchRepo().searchMovie(event.query);
-    emit(SearchLoadingSuccessState( movieList: movieList,));
+    List<MovieModels> searchRepo = [];
+    emit(SearchLoadingSuccessState(movieList: searchRepo));
+  }
+
+  FutureOr<void> searchQueryEvent(
+      SearchQueryEvent event, Emitter<SearchState> emit) async {
+    emit(SearchingState(query: event.query));
+    List<MovieModels> searchRepo = await SearchRepo().searchMovie(event.query);
+    print("searchRepo: $searchRepo");
+    emit(SearchLoadingSuccessState(movieList: searchRepo));
   }
 }

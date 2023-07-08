@@ -4,11 +4,11 @@ part of 'search_bloc.dart';
 abstract class SearchEvent {}
 
 class SearchInitialEvent extends SearchEvent {
-  final String query;
+  // final String query;
 
-  SearchInitialEvent({
-    required this.query,
-  });
+  // SearchInitialEvent({
+  //   required this.query,
+  // });
 }
 
 class SearchQueryEvent extends SearchEvent {
