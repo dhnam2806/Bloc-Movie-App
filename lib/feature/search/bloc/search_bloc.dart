@@ -13,6 +13,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(SearchInitial()) {
     on<SearchInitialEvent>(searchInitialEvent);
     on<SearchQueryEvent>(searchQueryEvent);
+    on<SearchMovieClickedEvent>(searchMovieClickedEvent);
   }
 
   FutureOr<void> searchInitialEvent(
@@ -28,5 +29,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     List<MovieModels> searchRepo = await SearchRepo().searchMovie(event.query);
     print("searchRepo: $searchRepo");
     emit(SearchLoadingSuccessState(movieList: searchRepo));
+  }
+
+
+
+  FutureOr<void> searchMovieClickedEvent(SearchMovieClickedEvent event, Emitter<SearchState> emit) {
+    emit(SearchMovieClickedState(movie: event.movie));
   }
 }

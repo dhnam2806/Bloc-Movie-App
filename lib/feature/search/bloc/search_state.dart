@@ -1,4 +1,3 @@
-
 part of 'search_bloc.dart';
 
 @immutable
@@ -13,19 +12,25 @@ class SearchLoadingState extends SearchState {}
 class SearchErrorState extends SearchState {}
 
 class SearchLoadingSuccessState extends SearchState {
-
   final List<MovieModels> movieList;
 
   SearchLoadingSuccessState({
     required this.movieList,
   });
-
 }
 
-class SearchingState extends SearchState {
+class SearchingState extends SearchActionState {
   final String query;
 
   SearchingState({
     required this.query,
+  });
+}
+
+class SearchMovieClickedState extends SearchActionState {
+  final MovieModels movie;
+
+  SearchMovieClickedState({
+    required this.movie,
   });
 }

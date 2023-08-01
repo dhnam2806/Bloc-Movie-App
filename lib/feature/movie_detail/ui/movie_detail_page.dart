@@ -57,10 +57,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           case MovieDetailLoadingSuccessState:
             var successState = (state as MovieDetailLoadingSuccessState);
             return Scaffold(
-              // appBar: AppBar(
-              //   elevation: 0,
-              //   scrolledUnderElevation: 0,
-              // ),
               body: SingleChildScrollView(
                 child: Column(
                   children: [

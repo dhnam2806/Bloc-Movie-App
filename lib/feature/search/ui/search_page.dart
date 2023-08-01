@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/data/models/movies_model.dart';
 import 'package:movie_app/feature/search/bloc/search_bloc.dart';
 
+import '../../movie_detail/ui/movie_detail_page.dart';
+
 class SearchPage extends StatefulWidget {
   SearchPage({super.key});
 
@@ -26,7 +28,12 @@ class _SearchPageState extends State<SearchPage> {
     return BlocConsumer<SearchBloc, SearchState>(
       bloc: searchBloc,
       listener: (context, state) {
-
+        if (state is SearchMovieClickedState) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MovieDetailPage(movie: state.movie)));
+        }
       },
       listenWhen: (previous, current) => current is SearchActionState,
       buildWhen: (previous, current) => current is! SearchActionState,
@@ -60,13 +67,7 @@ class _SearchPageState extends State<SearchPage> {
                             prefixIcon: Icon(Icons.search),
                           ),
                           onChanged: (value) {
-                            // searchQuery = value;
-                            print("value: $value");
-                            // searchBloc
-                            //     .add(SearchQueryEvent(query: value));
                             searchBloc.add(SearchQueryEvent(query: value));
-                            
-                            // searchBloc.add(SearchInitialEvent(query: searchQuery));
                           },
                         ),
                       ),
@@ -74,27 +75,38 @@ class _SearchPageState extends State<SearchPage> {
                         child: ListView.builder(
                             itemCount: successState.movieList.length,
                             itemBuilder: (context, index) {
-                              return ListTile(
-                                leading: Image.network(
-                                    successState.movieList[index].posterPath),
-                                title:
-                                    Text(successState.movieList[index].title),
-                                subtitle: Text(
-                                    successState.movieList[index].overview),
+                              return GestureDetector(
+                                onTap: () {
+                                  searchBloc.add(SearchMovieClickedEvent(
+                                      movie: successState.movieList[index]));
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.network(
+                                          'https://image.tmdb.org/t/p/w500${successState.movieList[index].posterPath}',
+                                          width: 80,
+                                        ),
+                                      ),
+                                      SizedBox(width: 12),
+                                      Expanded(
+                                        child: Text(
+                                          successState.movieList[index].title,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               );
                             }),
                       ),
-                      // ListView.builder(
-                      //     itemCount: successState.movieList.length,
-                      //     itemBuilder: (context, index) {
-                      //       return ListTile(
-                      //         leading: Image.network(
-                      //             successState.movieList[index].posterPath),
-                      //         title: Text(successState.movieList[index].title),
-                      //         subtitle:
-                      //             Text(successState.movieList[index].overview),
-                      //       );
-                      //     }),
                     ],
                   ),
                 ),

@@ -4,11 +4,7 @@ part of 'search_bloc.dart';
 abstract class SearchEvent {}
 
 class SearchInitialEvent extends SearchEvent {
-  // final String query;
 
-  // SearchInitialEvent({
-  //   required this.query,
-  // });
 }
 
 class SearchQueryEvent extends SearchEvent {
@@ -16,5 +12,13 @@ class SearchQueryEvent extends SearchEvent {
 
   SearchQueryEvent({
     required this.query,
+  });
+}
+
+class SearchMovieClickedEvent extends SearchEvent {
+  final MovieModels movie;
+
+  SearchMovieClickedEvent({
+    required this.movie,
   });
 }
