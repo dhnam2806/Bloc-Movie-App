@@ -10,7 +10,3 @@ class HomeMovieClickedEvent extends HomeEvent {
 
   HomeMovieClickedEvent({required this.movieId});
 }
-
-class NavigateToMovieDetailEvent extends HomeEvent {
-
-}

@@ -16,14 +16,14 @@ class CarouselSliderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       items: movieModels
-          .map((e) => GestureDetector(
-                onTap: () => homeBloc.add(HomeMovieClickedEvent(movieId: e)),
+          .map((movie) => GestureDetector(
+                onTap: () => homeBloc.add(HomeMovieClickedEvent(movieId: movie)),
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       image: DecorationImage(
                         image: NetworkImage(
-                            'https://image.tmdb.org/t/p/w500/${e.fullPosterPath}'),
+                            'https://image.tmdb.org/t/p/w500/${movie.fullPosterPath}'),
                         fit: BoxFit.cover,
                       )),
                 ),

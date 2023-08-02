@@ -83,7 +83,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               body: Padding(
-                padding: const EdgeInsets.all(2.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 4.0, vertical: 4),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,14 +97,15 @@ class _HomePageState extends State<HomePage> {
                           movieModels: successState.nowPlayingMovies,
                           homeBloc: homeBloc),
                       SizedBox(
-                        height: 16,
+                        height: 20,
                       ),
                       Text("Top Rated",
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold)),
                       MovieTitle(
                           moviesModel: successState.topRatedMovies,
-                          homeBloc: homeBloc),
+                          homeBloc: homeBloc,
+                          ),
                       SizedBox(
                         height: 20,
                       ),

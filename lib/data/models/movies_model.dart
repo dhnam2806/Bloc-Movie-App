@@ -1,8 +1,8 @@
 class MovieModels {
   final int id;
   final String title;
-  final String posterPath;
-  final String backdropPath;
+  final String? posterPath;
+  final String? backdropPath;
   final String overview;
   final String releaseDate;
   final double voteAverage;
@@ -32,3 +32,5 @@ class MovieModels {
 
   String get fullPosterPath => 'https://image.tmdb.org/t/p/w500/$posterPath';
 }
+
+

@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:movie_app/repository/movie_repo.dart';
-
 import '../../../data/models/movies_model.dart';
-
 part 'home_event.dart';
 part 'home_state.dart';
 
@@ -36,6 +32,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   FutureOr<void> homeMovieClickedEvent(
       HomeMovieClickedEvent event, Emitter<HomeState> emit) {
     emit(HomeMovieClickedState(movieId: event.movieId));
-    // emit(NavigateToMovieDetailState());
   }
 }

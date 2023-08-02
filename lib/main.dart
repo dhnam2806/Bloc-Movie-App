@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/feature/google_navbar.dart';
 
-import 'feature/home/ui/home_page.dart';
-
 void main() {
   runApp(MyApp());
 }

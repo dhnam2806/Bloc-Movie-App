@@ -21,10 +21,13 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
     emit(MovieDetailLoadingState());
     List<CastModels> cast = await MovieRepo().movieCast(event.movie_id.id);
     List<VideoModel> video = await MovieRepo().movieVideo(event.movie_id.id);
+    List<MovieModels> similarMovies =
+        await MovieRepo().getSimilarMovies(event.movie_id.id);
     emit(MovieDetailLoadingSuccessState(
       movieDetail: event.movie_id,
       cast: cast,
       video: video,
+      similarMovies: similarMovies,
     ));
   }
 

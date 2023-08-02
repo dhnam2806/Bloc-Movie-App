@@ -17,11 +17,13 @@ class MovieDetailLoadingSuccessState extends MovieDetailState {
   final MovieModels movieDetail;
   final List<CastModels> cast;
   final List<VideoModel> video;
+  final List<MovieModels> similarMovies;
 
   MovieDetailLoadingSuccessState({
     required this.movieDetail,
     required this.cast,
     required this.video,
+    required this.similarMovies,
   });
 }
 

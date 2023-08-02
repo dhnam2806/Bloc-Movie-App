@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/data/models/video_model.dart';
+import 'package:movie_app/feature/home/ui/movie_title_widget.dart';
 import 'package:movie_app/feature/movie_detail/bloc/movie_detail_bloc.dart';
 import 'package:movie_app/feature/movie_detail/ui/cast_widget.dart';
 import 'package:movie_app/feature/movie_detail/ui/circle_vote_widget.dart';
 import 'package:movie_app/data/models/movies_model.dart';
 import 'package:movie_app/feature/movie_detail/ui/watch_trailer_widget.dart';
+
+import '../../home/bloc/home_bloc.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final MovieModels movie;
@@ -18,6 +21,8 @@ class MovieDetailPage extends StatefulWidget {
 class _MovieDetailPageState extends State<MovieDetailPage> {
   final VideoModel video = VideoModel();
   final MovieDetailBloc movieDetailBloc = MovieDetailBloc();
+  final movieBloc = MovieDetailBloc();
+  final homeBloc = HomeBloc();
 
   @override
   void initState() {
@@ -80,7 +85,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Colors.black.withOpacity(0.92),
+                              Colors.black.withOpacity(0.6),
+                              Colors.black.withOpacity(1),
                             ],
                           ),
                         ),
@@ -178,8 +184,19 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                             SizedBox(height: 12),
                             CastWidget(castList: successState.cast),
                             SizedBox(height: 4),
+                            Text(
+                              "Similar Movies",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            MovieTitle(
+                              moviesModel: successState.similarMovies,
+                              homeBloc: homeBloc,
+                            )
                           ]),
-                    ))
+                    )),
                   ],
                 ),
               ),

@@ -32,4 +32,3 @@ class HomeMovieClickedState extends HomeActionState {
   HomeMovieClickedState({required this.movieId});
 }
 
-class NavigateToMovieDetailState extends HomeActionState {}
