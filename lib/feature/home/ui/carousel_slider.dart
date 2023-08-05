@@ -14,23 +14,25 @@ class CarouselSliderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return CarouselSlider(
       items: movieModels
           .map((movie) => GestureDetector(
-                onTap: () => homeBloc.add(HomeMovieClickedEvent(movieId: movie)),
+                onTap: () =>
+                    homeBloc.add(HomeMovieClickedEvent(movieId: movie)),
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       image: DecorationImage(
                         image: NetworkImage(
-                            'https://image.tmdb.org/t/p/w500/${movie.fullPosterPath}'),
+                            movie.posterPath342),
                         fit: BoxFit.cover,
                       )),
                 ),
               ))
           .toList(),
       options: CarouselOptions(
-        height: 420,
+        height: size.height * 0.52,
         viewportFraction: .84,
         initialPage: 0,
         autoPlay: true,

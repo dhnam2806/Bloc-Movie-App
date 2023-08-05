@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:movie_app/data/models/movies_model.dart';
-import 'package:movie_app/repository/search_repo.dart';
+import 'package:movie_app/repositories/search_repo.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';

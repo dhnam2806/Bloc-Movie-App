@@ -13,8 +13,9 @@ class MovieTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
-      height: 280,
+      height: size.height * 0.36,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: moviesModel.length,
@@ -25,23 +26,23 @@ class MovieTitle extends StatelessWidget {
             },
             child: Padding(
               padding:
-                  const EdgeInsets.only(right: 12, left: 0, top: 8, bottom: 8),
+                  const EdgeInsets.only(right: 12, left: 0, top: 8, bottom: 4),
               child: Container(
-                width: 170,
+                width: size.width * 0.42,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child: Image.network(
-                        'https://image.tmdb.org/t/p/w500/${moviesModel[index].posterPath}',
-                        height: 240,
-                        width: 168,
+                        moviesModel[index].posterPath342,
+                        height: size.height * 0.3,
+                        width: size.width * 0.42,
                         fit: BoxFit.cover,
                       ),
                     ),
                     SizedBox(
-                      height: 2,
+                      height: 4,
                     ),
                     Text(
                       moviesModel[index].title,

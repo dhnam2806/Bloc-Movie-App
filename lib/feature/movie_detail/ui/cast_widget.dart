@@ -24,7 +24,7 @@ class CastWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
-                    'https://image.tmdb.org/t/p/w500/${castList[index].profilePath}',
+                    castList[index].fullProfilePath,
                     height: 160,
                     width: 100,
                     fit: BoxFit.cover,

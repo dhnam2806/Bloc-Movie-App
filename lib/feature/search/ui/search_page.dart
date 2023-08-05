@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/data/models/movies_model.dart';
 import 'package:movie_app/feature/search/bloc/search_bloc.dart';
-
 import '../../movie_detail/ui/movie_detail_page.dart';
 
 class SearchPage extends StatefulWidget {
@@ -71,34 +70,50 @@ class _SearchPageState extends State<SearchPage> {
                           },
                         ),
                       ),
+                      SizedBox(height: 12),
                       Expanded(
                         child: ListView.builder(
                             itemCount: successState.movieList.length,
                             itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  searchBloc.add(SearchMovieClickedEvent(
-                                      movie: successState.movieList[index]));
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    searchBloc.add(SearchMovieClickedEvent(
+                                        movie: successState.movieList[index]));
+                                  },
                                   child: Row(
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(12),
                                         child: Image.network(
-                                          'https://image.tmdb.org/t/p/w500${successState.movieList[index].posterPath}',
-                                          width: 80,
+                                          successState
+                                              .movieList[index].posterPath342,
+                                          width: 120,
                                         ),
                                       ),
                                       SizedBox(width: 12),
-                                      Expanded(
-                                        child: Text(
-                                          successState.movieList[index].title,
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                      Flexible(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              successState
+                                                  .movieList[index].title,
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            SizedBox(height: 8),
+                                            Text(
+                                              "Release Date: " +
+                                                  successState.movieList[index]
+                                                      .releaseDate,
+                                              style: TextStyle(fontSize: 16),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],

@@ -57,4 +57,11 @@ class CastModels {
     data['order'] = this.order;
     return data;
   }
+
+  String get fullProfilePath => profilePath != null
+      ? 'https://image.tmdb.org/t/p/w500/$profilePath'
+      : blankProfilePath;
+
+  String blankProfilePath =
+      'https://alumni.engineering.utoronto.ca/files/2022/05/Avatar-Placeholder-400x400-1.jpg';
 }

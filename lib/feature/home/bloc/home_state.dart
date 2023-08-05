@@ -27,8 +27,8 @@ class HomeLoadingSuccessState extends HomeState {
 class HomeLoadingErrorState extends HomeState {}
 
 class HomeMovieClickedState extends HomeActionState {
-  final MovieModels movieId;
+  final MovieModels movie;
 
-  HomeMovieClickedState({required this.movieId});
+  HomeMovieClickedState({required this.movie});
 }
 

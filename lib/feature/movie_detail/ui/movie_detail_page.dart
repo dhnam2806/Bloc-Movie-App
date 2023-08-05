@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/data/models/video_model.dart';
-import 'package:movie_app/feature/home/ui/movie_title_widget.dart';
 import 'package:movie_app/feature/movie_detail/bloc/movie_detail_bloc.dart';
 import 'package:movie_app/feature/movie_detail/ui/cast_widget.dart';
 import 'package:movie_app/feature/movie_detail/ui/circle_vote_widget.dart';
 import 'package:movie_app/data/models/movies_model.dart';
 import 'package:movie_app/feature/movie_detail/ui/watch_trailer_widget.dart';
-
-import '../../home/bloc/home_bloc.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final MovieModels movie;
@@ -21,8 +18,6 @@ class MovieDetailPage extends StatefulWidget {
 class _MovieDetailPageState extends State<MovieDetailPage> {
   final VideoModel video = VideoModel();
   final MovieDetailBloc movieDetailBloc = MovieDetailBloc();
-  final movieBloc = MovieDetailBloc();
-  final homeBloc = HomeBloc();
 
   @override
   void initState() {
@@ -32,6 +27,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final safePadding = MediaQuery.of(context).padding.top;
     return BlocConsumer<MovieDetailBloc, MovieDetailState>(
       bloc: movieDetailBloc,
       listener: (context, state) {
@@ -42,6 +39,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   builder: (context) =>
                       WatchTrailerWidget(videoId: state.videoId)));
         }
+        // if (state is SimilarMovieClickedState) {
+
+        // }
       },
       listenWhen: (previous, current) => current is MovieDetailActionState,
       buildWhen: (previous, current) => current is! MovieDetailActionState,
@@ -63,142 +63,150 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             var successState = (state as MovieDetailLoadingSuccessState);
             return Scaffold(
               body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Stack(alignment: Alignment.bottomCenter, children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.65,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "https://image.tmdb.org/t/p/w500${successState.movieDetail.fullPosterPath}"),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 120,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black.withOpacity(0.6),
-                              Colors.black.withOpacity(1),
-                            ],
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          movieDetailBloc.add(WatchTrailerNavigateEvent(
-                              movie_id: successState.movieDetail));
-                        },
-                        child: Container(
-                          width: 200,
-                          height: 48,
+                child: Stack(alignment: Alignment.topCenter, children: [
+                  Column(
+                    children: [
+                      Stack(alignment: Alignment.bottomCenter, children: [
+                        Container(
+                          height: size.height * 0.65,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.red),
-                          child: Container(
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.play_arrow,
-                                    size: 28,
-                                  ),
-                                  SizedBox(width: 4),
-                                  Text(
-                                    "Watch Trailer",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22),
-                                  )
-                                ]),
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  successState.movieDetail.fullPosterPath),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                    ]),
-                    SizedBox(height: 4),
-                    Container(
-                        child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
+                        Container(
+                          height: 120,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.transparent,
+                                Colors.black.withOpacity(0.6),
+                                Colors.black.withOpacity(1),
+                              ],
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            movieDetailBloc.add(WatchTrailerNavigateEvent(
+                                movie_id: successState.movieDetail));
+                          },
+                          child: Container(
+                            width: 200,
+                            height: 48,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.red),
+                            child: Container(
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      successState.movieDetail.title,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.play_arrow,
+                                      size: 28,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      "Watch Trailer",
                                       style: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22),
+                                    )
+                                  ]),
+                            ),
+                          ),
+                        ),
+                      ]),
+                      SizedBox(height: 4),
+                      Container(
+                          child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        successState.movieDetail.title,
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  CircleVoteAverageWidget(
-                                    voteAverage:
-                                        successState.movieDetail.voteAverage,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 12),
-                            Container(
-                              child: Text(
-                                successState.movieDetail.releaseDate,
-                                style: TextStyle(
-                                  color: Colors.white60,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
+                                    CircleVoteAverageWidget(
+                                      voteAverage:
+                                          successState.movieDetail.voteAverage,
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 20),
-                            Container(
-                              child: Text(
-                                successState.movieDetail.overview,
-                                style: TextStyle(
-                                    height: 1.4,
-                                    color: Colors.white70,
+                              SizedBox(height: 12),
+                              Container(
+                                child: Text(
+                                  successState.movieDetail.overview,
+                                  style: TextStyle(
+                                      height: 1.4,
+                                      color: Colors.white70,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              Container(
+                                child: Text(
+                                  "Release Date: " +
+                                      successState.movieDetail.releaseDate,
+                                  style: TextStyle(
+                                    color: Colors.white60,
                                     fontSize: 18,
-                                    fontWeight: FontWeight.w500),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 20),
-                            Text(
-                              "Cast",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
+                              SizedBox(height: 20),
+                              Text(
+                                "Cast",
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 12),
-                            CastWidget(castList: successState.cast),
-                            SizedBox(height: 4),
-                            Text(
-                              "Similar Movies",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            MovieTitle(
-                              moviesModel: successState.similarMovies,
-                              homeBloc: homeBloc,
-                            )
-                          ]),
-                    )),
-                  ],
-                ),
+                              SizedBox(height: 16),
+                              CastWidget(castList: successState.cast),
+                            ]),
+                      )),
+                    ],
+                  ),
+                  Container(
+                    padding:
+                        EdgeInsets.only(top: safePadding, left: 12, right: 12),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(Icons.arrow_back_ios, size: 28)),
+                          Icon(
+                            Icons.favorite_border,
+                            size: 32,
+                          ),
+                        ]),
+                  ),
+                ]),
               ),
             );
           default:

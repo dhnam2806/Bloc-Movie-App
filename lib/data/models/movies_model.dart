@@ -7,8 +7,7 @@ class MovieModels {
   final String releaseDate;
   final double voteAverage;
 
-  MovieModels(
-      {
+  MovieModels({
     required this.id,
     required this.title,
     required this.posterPath,
@@ -30,7 +29,13 @@ class MovieModels {
     );
   }
 
-  String get fullPosterPath => 'https://image.tmdb.org/t/p/w500/$posterPath';
+  String get fullPosterPath => posterPath != null
+      ? 'https://image.tmdb.org/t/p/w500/$posterPath'
+      : blankPosterPath;
+  String get posterPath342 => posterPath != null
+      ? 'https://image.tmdb.org/t/p/w342/$posterPath'
+      : blankPosterPath;
+
+  String blankPosterPath =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png';
 }
-
-
