@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/feature/home/bloc/home_bloc.dart';
-import 'package:movie_app/feature/home/ui/carousel_slider.dart';
-import 'package:movie_app/feature/home/ui/movie_title_widget.dart';
+import 'package:movie_app/feature/home/ui/widget/carousel_slider.dart';
+import 'package:movie_app/feature/home/ui/widget/movie_title_widget.dart';
 import 'package:movie_app/feature/movie_detail/ui/movie_detail_page.dart';
 
 class HomePage extends StatefulWidget {

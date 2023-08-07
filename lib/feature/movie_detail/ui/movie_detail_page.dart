@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/data/models/video_model.dart';
 import 'package:movie_app/feature/movie_detail/bloc/movie_detail_bloc.dart';
-import 'package:movie_app/feature/movie_detail/ui/cast_widget.dart';
-import 'package:movie_app/feature/movie_detail/ui/circle_vote_widget.dart';
+import 'package:movie_app/feature/movie_detail/ui/widget/button.dart';
+import 'package:movie_app/feature/movie_detail/ui/widget/cast_widget.dart';
+import 'package:movie_app/feature/movie_detail/ui/widget/circle_vote_widget.dart';
 import 'package:movie_app/data/models/movies_model.dart';
-import 'package:movie_app/feature/movie_detail/ui/watch_trailer_widget.dart';
+import 'package:movie_app/feature/movie_detail/ui/widget/watch_trailer_widget.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final MovieModels movie;
@@ -189,20 +190,23 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                       )),
                     ],
                   ),
-                  Container(
-                    padding:
-                        EdgeInsets.only(top: safePadding, left: 12, right: 12),
+                  Positioned(
+                    top: safePadding,
+                    left: 4,
+                    right: 4,
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Icon(Icons.arrow_back_ios, size: 28)),
-                          Icon(
-                            Icons.favorite_border,
-                            size: 32,
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: ButtonCustom(
+                              iconData: Icon(Icons.arrow_back_ios_new),
+                            ),
+                          ),
+                          ButtonCustom(
+                            iconData: Icon(Icons.favorite_border),
                           ),
                         ]),
                   ),

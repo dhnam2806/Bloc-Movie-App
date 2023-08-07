@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/data/models/movies_model.dart';
-import '../bloc/home_bloc.dart';
+import '../../bloc/home_bloc.dart';
 
 class CarouselSliderWidget extends StatelessWidget {
   final HomeBloc homeBloc;
