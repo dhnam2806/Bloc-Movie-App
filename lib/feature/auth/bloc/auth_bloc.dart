@@ -10,6 +10,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
   AuthBloc({required this.authRepository}) : super(AuthInitial()) {
     on<SignUpRequest>(signUpRequest);
+    on<SignInRequest>(signInRequest);
   }
 
   Future<FutureOr<void>> signUpRequest(
@@ -24,6 +25,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(SignUpSuccessState(message: 'Sign Up Success'));
     } catch (e) {
       emit(SignUpFailedState(message: e.toString()));
+    }
+  }
+
+  FutureOr<void> signInRequest(SignInRequest event, Emitter<AuthState> emit) {
+    emit(LoadingState());
+    try {
+      authRepository.signIn(
+        email: event.email,
+        password: event.password,
+      );
+      emit(SignInSuccessState(message: 'Sign In Success'));
+    } catch (e) {
+      emit(SignInFailedState(message: e.toString()));
     }
   }
 }

@@ -11,8 +11,9 @@ class AuthRepository {
     required String username,
   }) async {
     try {
-      if(email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
-        UserCredential userCredential = await firebaseAuth.createUserWithEmailAndPassword(
+      if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
+        UserCredential userCredential =
+            await firebaseAuth.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
@@ -22,6 +23,22 @@ class AuthRepository {
           'uid': userCredential.user!.uid,
           'favoriteMovies': [],
         });
+      }
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.message);
+    }
+  }
+
+  Future<void> signIn({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await firebaseAuth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
       }
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);

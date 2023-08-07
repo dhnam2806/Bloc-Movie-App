@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../repositories/auth_repository.dart';
 import '../bloc/auth_bloc.dart';
 
@@ -22,7 +19,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
@@ -39,8 +35,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: SingleChildScrollView(
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              // TODO: implement listener
+              if(state is SignUpSuccessState){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              } else if(state is SignUpFailedState){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.message),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+
             },
+            listenWhen: (previous, current) => current is AuthActionState,
+            buildWhen: (previous, current) => current is! AuthActionState,
             builder: (context, state) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,

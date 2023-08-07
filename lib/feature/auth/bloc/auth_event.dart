@@ -17,3 +17,13 @@ class SignUpRequest extends AuthEvent {
     required this.username,
   });
 }
+
+class SignInRequest extends AuthEvent {
+  final String email;
+  final String password;
+
+  SignInRequest({
+    required this.email,
+    required this.password,
+  });
+}

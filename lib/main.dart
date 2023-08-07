@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
-              // primarySwatch: Colors.blue,
               brightness: Brightness.dark,
               scaffoldBackgroundColor: Colors.black,
               appBarTheme: AppBarTheme(
@@ -40,11 +39,7 @@ class MyApp extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ))),
-          // darkTheme: ThemeData(
-          //   brightness: Brightness.dark,
-          //   scaffoldBackgroundColor: Colors.black,
-          // ),
-          home: RegisterScreen(),
+          home: LoginScreen(),
           // home: GNavBar(),
         ),
       ),
