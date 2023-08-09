@@ -11,11 +11,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository}) : super(AuthInitial()) {
     on<SignUpRequest>(signUpRequest);
     on<SignInRequest>(signInRequest);
+    on<SignUpNavigateEvent>(signUpNavigateEvent);
+    on<SignInNavigateEvent>(signInNavigateEvent);
+    on<SignOutRequest>(signOutRequest);
   }
 
   Future<FutureOr<void>> signUpRequest(
       SignUpRequest event, Emitter<AuthState> emit) async {
-    emit(LoadingState());
+    // emit(LoadingState());
     try {
       await authRepository.signUp(
         email: event.email,
@@ -28,10 +31,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  FutureOr<void> signInRequest(SignInRequest event, Emitter<AuthState> emit) {
-    emit(LoadingState());
+  Future<FutureOr<void>> signInRequest(SignInRequest event, Emitter<AuthState> emit) async {
+    // emit(LoadingState());
     try {
-      authRepository.signIn(
+      await authRepository.signIn(
         email: event.email,
         password: event.password,
       );
@@ -39,5 +42,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(SignInFailedState(message: e.toString()));
     }
+  }
+
+  FutureOr<void> signUpNavigateEvent(SignUpNavigateEvent event, Emitter<AuthState> emit) {
+    emit(SignUpNavigateState());
+  }
+
+  FutureOr<void> signInNavigateEvent(SignInNavigateEvent event, Emitter<AuthState> emit) {
+    emit(SignInNavigateState());
+  }
+
+  FutureOr<void> signOutRequest(SignOutRequest event, Emitter<AuthState> emit) {
+    authRepository.signOut();
+    emit(SignOutSuccessState(message: 'Sign Out Success'));
   }
 }

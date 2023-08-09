@@ -1,9 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/feature/auth/ui/login_screen.dart';
-import 'package:movie_app/feature/auth/ui/register_screen.dart';
-import 'package:movie_app/feature/google_navbar.dart';
+import 'package:movie_app/feature/auth/ui/auth_main.dart';
 import 'package:movie_app/repositories/auth_repository.dart';
 
 import 'feature/auth/bloc/auth_bloc.dart';
@@ -15,18 +13,16 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
       create: (context) => AuthRepository(),
       child: BlocProvider(
-        create: (context) => AuthBloc(
-          authRepository: context.read<AuthRepository>(),
-        ),
+        create: (context) =>
+            AuthBloc(authRepository: context.read<AuthRepository>()),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'BLoC Movie',
           theme: ThemeData(
               brightness: Brightness.dark,
               scaffoldBackgroundColor: Colors.black,
@@ -39,7 +35,7 @@ class MyApp extends StatelessWidget {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ))),
-          home: LoginScreen(),
+          home: AuthMain(),
           // home: GNavBar(),
         ),
       ),

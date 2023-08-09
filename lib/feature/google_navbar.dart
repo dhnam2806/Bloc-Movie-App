@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:movie_app/feature/auth/ui/person_screen.dart';
 import 'package:movie_app/feature/search/ui/search_page.dart';
 import 'home/ui/home_page.dart';
 
@@ -16,6 +17,7 @@ class _GNavBarState extends State<GNavBar> {
   static List<Widget> navScreens = <Widget>[
     HomePage(),
     SearchPage(),
+    ProfileScreen(),
   ];
 
   @override

@@ -27,3 +27,11 @@ class SignInRequest extends AuthEvent {
     required this.password,
   });
 }
+
+class SignOutRequest extends AuthEvent {}
+
+class SignUpNavigateEvent extends AuthEvent {}
+
+class SignInNavigateEvent extends AuthEvent {}
+
+class ForgotPasswordNavigateEvent extends AuthEvent {}

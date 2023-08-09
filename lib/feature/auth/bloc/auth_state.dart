@@ -9,26 +9,40 @@ class AuthActionState extends AuthState {}
 
 class LoadingState extends AuthState {}
 
-class SignUpSuccessState extends AuthState {
+class SignUpSuccessState extends AuthActionState {
   final String message;
 
   SignUpSuccessState({required this.message});
 }
 
-class SignUpFailedState extends AuthState {
+class SignUpFailedState extends AuthActionState {
   final String message;
 
   SignUpFailedState({required this.message});
 }
 
-class SignInSuccessState extends AuthState {
+class SignInSuccessState extends AuthActionState {
   final String message;
 
   SignInSuccessState({required this.message});
 }
 
-class SignInFailedState extends AuthState {
+class SignInFailedState extends AuthActionState {
   final String message;
 
   SignInFailedState({required this.message});
+}
+
+class SignUpNavigateState extends AuthActionState {
+  
+}
+
+class SignInNavigateState extends AuthActionState {
+  
+}
+
+class SignOutSuccessState extends AuthActionState {
+  final String message;
+
+  SignOutSuccessState({required this.message});
 }

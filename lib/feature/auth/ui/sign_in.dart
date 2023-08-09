@@ -1,48 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../repositories/auth_repository.dart';
+import 'package:movie_app/feature/auth/ui/sign_up.dart';
+import '../../google_navbar.dart';
 import '../bloc/auth_bloc.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+class _SignInScreenState extends State<SignInScreen> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
+  }
+
+  void signIn() {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please fill all the fields'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
+      context.read<AuthBloc>().add(SignInRequest(
+            email: _emailController.text,
+            password: _passwordController.text,
+          ));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        // backgroundColor: bgColor,
-        child: Scaffold(
+    return Scaffold(
       body: Center(
         child: SingleChildScrollView(
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
-              if(state is SignUpSuccessState){
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                    backgroundColor: Colors.green,
-                  ),
-                );
-              } else if(state is SignUpFailedState){
+              if (state is SignInSuccessState) {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const GNavBar()));
+                _emailController.clear();
+                _passwordController.clear();
+              }
+              if (state is SignInFailedState) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(state.message),
@@ -50,7 +60,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 );
               }
-
+              if (state is SignUpNavigateState) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignUpScreen()));
+              }
             },
             listenWhen: (previous, current) => current is AuthActionState,
             buildWhen: (previous, current) => current is! AuthActionState,
@@ -80,40 +95,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         fontSize: 20,
                       )),
 
-                  // First Name TextField
-                  const SizedBox(height: 32),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white30,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2),
-                        child: TextField(
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 16),
-                          controller: nameController,
-                          decoration: const InputDecoration(
-                            icon: Padding(
-                              padding: EdgeInsets.only(left: 12.0),
-                              child: Icon(
-                                Icons.person,
-                                color: Colors.white,
-                              ),
-                            ),
-                            border: InputBorder.none,
-                            hintText: 'Name',
-                            hintStyle: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-
                   // Email TextField
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 32),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Container(
@@ -126,8 +109,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: TextField(
                           keyboardType: TextInputType.emailAddress,
                           style: const TextStyle(
-                              color: Colors.white, fontSize: 16),
-                          controller: emailController,
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                          controller: _emailController,
                           decoration: const InputDecoration(
                             icon: Padding(
                               padding: EdgeInsets.only(left: 12.0),
@@ -159,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         child: TextField(
                           obscureText: true,
                           style: const TextStyle(color: Colors.white),
-                          controller: passwordController,
+                          controller: _passwordController,
                           decoration: const InputDecoration(
                             icon: Padding(
                               padding: EdgeInsets.only(left: 12.0),
@@ -171,50 +156,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             border: InputBorder.none,
                             hintText: 'Password',
                             hintStyle: TextStyle(color: Colors.white),
-                            // prefixIcon: Icon(
-                            //   Icons.password,
-                            //   color: Colors.white,
-                            // ),
                           ),
                         ),
                       ),
                     ),
                   ),
 
-                  // Confirm Password TextField
+                  // forgot password
+                  const SizedBox(height: 8.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const ForgotPasswordPage(),
+                          //   ),
+                          // );
+                        },
+                        child: const Text("Forgot Password?",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 16,
+                            )),
+                      ),
+                      const SizedBox(width: 20.0),
+                    ],
+                  ),
+
+                  // Sign In Button
                   const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white30,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2),
-                        child: TextField(
-                          obscureText: true,
-                          style: const TextStyle(color: Colors.white),
-                          controller: confirmPasswordController,
-                          decoration: const InputDecoration(
-                            icon: Padding(
-                              padding: EdgeInsets.only(left: 12.0),
-                              child: Icon(
-                                Icons.password,
-                                color: Colors.white,
-                              ),
-                            ),
-                            border: InputBorder.none,
-                            hintText: 'Confirm Password',
-                            hintStyle: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  // Sign Up Button
-                  const SizedBox(height: 24),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: SizedBox(
@@ -222,13 +195,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          BlocProvider.of<AuthBloc>(context).add(
-                            SignUpRequest(
-                              username: nameController.text,
-                              email: emailController.text,
-                              password: passwordController.text,
-                            ),
-                          );
+                          signIn();
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -240,7 +207,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         child: const Text(
-                          "Sign Up",
+                          "Sign In",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -250,21 +217,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
 
-                  // Already have an account
+                  // Not a member text
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Already have an account? ",
+                      const Text("Not a member? ",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                           )),
                       GestureDetector(
                         onTap: () {
-                          // widget.showSignInPage();
+                          BlocProvider.of<AuthBloc>(context)
+                              .add(SignUpNavigateEvent());
                         },
-                        child: const Text("Sign In",
+                        child: const Text("Sign Up Now",
                             style: TextStyle(
                               color: Colors.blue,
                               fontSize: 16,
@@ -278,6 +246,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
-    ));
+    );
   }
 }

@@ -11,7 +11,7 @@ class AuthRepository {
     required String username,
   }) async {
     try {
-      if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
+      if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty ) {
         UserCredential userCredential =
             await firebaseAuth.createUserWithEmailAndPassword(
           email: email,
@@ -44,4 +44,13 @@ class AuthRepository {
       throw Exception(e.message);
     }
   }
+
+  Future<void> signOut() async {
+    try {
+      await firebaseAuth.signOut();
+    } catch (e) {
+      throw Exception(e);
+    }
+}
+
 }

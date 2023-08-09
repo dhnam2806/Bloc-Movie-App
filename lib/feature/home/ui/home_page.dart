@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/feature/home/bloc/home_bloc.dart';
@@ -101,9 +102,9 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold)),
                       MovieTitle(
-                          moviesModel: successState.topRatedMovies,
-                          homeBloc: homeBloc,
-                          ),
+                        moviesModel: successState.topRatedMovies,
+                        homeBloc: homeBloc,
+                      ),
                       SizedBox(
                         height: 20,
                       ),
