@@ -21,9 +21,6 @@ class _FavoriteMoviesScreenState extends State<FavoriteMoviesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Favorite Movies'),
-      ),
       body: BlocConsumer<FavoriteBloc, FavoriteState>(
         bloc: favoriteBloc,
         listener: (context, state) {
@@ -46,7 +43,10 @@ class _FavoriteMoviesScreenState extends State<FavoriteMoviesScreen> {
         buildWhen: (previous, current) => current is! FavoriteActionState,
         builder: (context, state) {
           if (state is FavoriteMoviesLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+                child: CircularProgressIndicator(
+              color: Colors.red,
+            ));
           } else if (state is FavoriteMoviesErrorState) {
             return Center(child: Text(state.message));
           } else if (state is FavoriteMoviesLoadedState) {

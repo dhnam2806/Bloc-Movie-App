@@ -56,7 +56,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           case MovieDetailLoadingState:
             return Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.red,
+                ),
               ),
             );
           case MovieDetailErrorState:

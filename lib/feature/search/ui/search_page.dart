@@ -41,7 +41,9 @@ class _SearchPageState extends State<SearchPage> {
           case SearchLoadingState:
             return Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.red,
+                ),
               ),
             );
           case SearchErrorState:
@@ -60,15 +62,26 @@ class _SearchPageState extends State<SearchPage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
-                          controller: controller,
-                          decoration: InputDecoration(
-                            hintText: "Search",
-                            prefixIcon: Icon(Icons.search),
-                          ),
-                          onChanged: (value) {
-                            searchBloc.add(SearchQueryEvent(query: value));
-                          },
-                        ),
+                            controller: controller,
+                            decoration: InputDecoration(
+                              hintText: "Search",
+                              prefixIcon: Icon(Icons.search, color: Colors.red),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                            ),
+                            onChanged: (value) {
+                              searchBloc.add(SearchQueryEvent(query: value));
+                            },
+                            cursorColor: Colors.red,
+                            style: TextStyle(
+                              fontSize: 18,
+                            )),
                       ),
                       SizedBox(height: 12),
                       Expanded(

@@ -47,7 +47,7 @@ class _GNavBarState extends State<GNavBar> {
             icon: Icons.search,
             text: 'Search',
           ),
-          GButton(icon: Icons.favorite, text: 'Likes'),
+          GButton(icon: Icons.favorite, text: 'Favorite'),
           GButton(icon: Icons.person, text: 'Profile'),
         ],
         selectedIndex: _currentIndex,

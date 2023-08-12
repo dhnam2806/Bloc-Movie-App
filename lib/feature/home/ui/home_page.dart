@@ -47,7 +47,9 @@ class _HomePageState extends State<HomePage> {
           case HomeLoadingState:
             return Scaffold(
               body: Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.red,
+                ),
               ),
             );
 

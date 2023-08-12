@@ -10,11 +10,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
-    print(user.email);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-      ),
       body: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is SignOutSuccessState) {
@@ -37,10 +33,15 @@ class ProfileScreen extends StatelessWidget {
                     style: const TextStyle(fontSize: 24),
                     textAlign: TextAlign.center,
                   ),
-                  Text("${user.uid}"),
+                  const SizedBox(height: 8),
+                  Text("Id: ${user.uid}"),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     child: const Text('Sign Out'),
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.red,
+                    ),
                     onPressed: () {
                       // Signing out the user
                       context.read<AuthBloc>().add(SignOutRequest());

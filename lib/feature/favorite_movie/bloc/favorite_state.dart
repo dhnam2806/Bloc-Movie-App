@@ -25,7 +25,7 @@ class FavoriteMoviesErrorState extends FavoriteState {
   });
 }
 
-// class FavoriteMovieRemoveMovieState extends FavoriteActionState {}
+class FavoriteMovieRemoveMovieState extends FavoriteActionState {}
 
 class FavoriteMovieRemoveSuccessState extends FavoriteState {
   final List<MovieModels> movies;
