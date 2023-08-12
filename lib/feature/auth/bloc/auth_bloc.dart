@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:email_validator/email_validator.dart';
 import '../../../repositories/auth_repository.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -14,11 +16,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignUpNavigateEvent>(signUpNavigateEvent);
     on<SignInNavigateEvent>(signInNavigateEvent);
     on<SignOutRequest>(signOutRequest);
+    on<ForgotPasswordRequestEvent>(forgotPasswordRequestEvent);
+    on<ForgotPasswordNavigateEvent>(forgotPasswordNavigateEvent);
   }
 
   Future<FutureOr<void>> signUpRequest(
       SignUpRequest event, Emitter<AuthState> emit) async {
-    // emit(LoadingState());
     try {
       await authRepository.signUp(
         email: event.email,
@@ -31,8 +34,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<FutureOr<void>> signInRequest(SignInRequest event, Emitter<AuthState> emit) async {
-    // emit(LoadingState());
+  Future<FutureOr<void>> signInRequest(
+      SignInRequest event, Emitter<AuthState> emit) async {
     try {
       await authRepository.signIn(
         email: event.email,
@@ -44,16 +47,39 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  FutureOr<void> signUpNavigateEvent(SignUpNavigateEvent event, Emitter<AuthState> emit) {
+  FutureOr<void> signUpNavigateEvent(
+      SignUpNavigateEvent event, Emitter<AuthState> emit) {
     emit(SignUpNavigateState());
   }
 
-  FutureOr<void> signInNavigateEvent(SignInNavigateEvent event, Emitter<AuthState> emit) {
+  FutureOr<void> signInNavigateEvent(
+      SignInNavigateEvent event, Emitter<AuthState> emit) {
     emit(SignInNavigateState());
   }
 
   FutureOr<void> signOutRequest(SignOutRequest event, Emitter<AuthState> emit) {
     authRepository.signOut();
     emit(SignOutSuccessState(message: 'Sign Out Success'));
+  }
+
+  FutureOr<void> forgotPasswordNavigateEvent(
+      ForgotPasswordNavigateEvent event, Emitter<AuthState> emit) {
+    emit(ForgotPasswordNavigateState());
+  }
+
+  FutureOr<void> forgotPasswordRequestEvent(
+      ForgotPasswordRequestEvent event, Emitter<AuthState> emit) async {
+    final bool isValidEmail = EmailValidator.validate(event.email);
+    if (isValidEmail) {
+      try {
+        await authRepository.forgotPassword(email: event.email);
+        emit(ForgotPasswordSuccessState(message: 'Forgot Password Success'));
+      } on FirebaseAuthException catch (e) {
+        emit(ForgotPasswordFailedState(message: e.toString()));
+      }
+    }
+    if (!isValidEmail) {
+      emit(ForgotPasswordFailedState(message: 'Email is not valid'));
+    }
   }
 }

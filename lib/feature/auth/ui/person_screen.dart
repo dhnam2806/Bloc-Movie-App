@@ -10,6 +10,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    print(user.email);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),

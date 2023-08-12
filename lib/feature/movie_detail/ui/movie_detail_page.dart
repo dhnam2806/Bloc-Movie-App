@@ -40,9 +40,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                   builder: (context) =>
                       WatchTrailerWidget(videoId: state.videoId)));
         }
-        // if (state is SimilarMovieClickedState) {
-
-        // }
+        if (state is AddToFavoriteListState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Added to favorite list'),
+              duration: Duration(seconds: 1),
+            ),
+          );
+        }
       },
       listenWhen: (previous, current) => current is MovieDetailActionState,
       buildWhen: (previous, current) => current is! MovieDetailActionState,
@@ -191,7 +196,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     ],
                   ),
                   Positioned(
-                    top: safePadding,
+                    top: safePadding + 4,
                     left: 4,
                     right: 4,
                     child: Row(
@@ -205,8 +210,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               iconData: Icon(Icons.arrow_back_ios_new),
                             ),
                           ),
-                          ButtonCustom(
-                            iconData: Icon(Icons.favorite_border),
+                          InkWell(
+                            onTap: () {
+                              movieDetailBloc.add(
+                                  AddToFavoriteListEvent(movie: widget.movie));
+                            },
+                            child: ButtonCustom(
+                              iconData: Icon(Icons.favorite_border),
+                            ),
                           ),
                         ]),
                   ),

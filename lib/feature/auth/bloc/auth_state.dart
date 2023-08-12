@@ -33,16 +33,26 @@ class SignInFailedState extends AuthActionState {
   SignInFailedState({required this.message});
 }
 
-class SignUpNavigateState extends AuthActionState {
-  
-}
+class SignUpNavigateState extends AuthActionState {}
 
-class SignInNavigateState extends AuthActionState {
-  
-}
+class SignInNavigateState extends AuthActionState {}
 
 class SignOutSuccessState extends AuthActionState {
   final String message;
 
   SignOutSuccessState({required this.message});
+}
+
+class ForgotPasswordNavigateState extends AuthActionState {}
+
+class ForgotPasswordSuccessState extends AuthActionState {
+  final String message;
+
+  ForgotPasswordSuccessState({required this.message});
+}
+
+class ForgotPasswordFailedState extends AuthActionState {
+  final String message;
+
+  ForgotPasswordFailedState({required this.message});
 }

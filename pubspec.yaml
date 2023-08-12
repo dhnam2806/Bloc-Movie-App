@@ -45,6 +45,7 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   google_fonts:
+  email_validator:
   
 
 dev_dependencies:

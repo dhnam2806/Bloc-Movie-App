@@ -11,7 +11,7 @@ class AuthRepository {
     required String username,
   }) async {
     try {
-      if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty ) {
+      if (email.isNotEmpty && password.isNotEmpty && username.isNotEmpty) {
         UserCredential userCredential =
             await firebaseAuth.createUserWithEmailAndPassword(
           email: email,
@@ -51,6 +51,13 @@ class AuthRepository {
     } catch (e) {
       throw Exception(e);
     }
-}
+  }
 
-}
+  Future<void> forgotPassword({required String email}) async {
+      try {
+        await firebaseAuth.sendPasswordResetEmail(email: email);
+      } catch (e) {
+        throw Exception(e);
+      }
+    }
+  }

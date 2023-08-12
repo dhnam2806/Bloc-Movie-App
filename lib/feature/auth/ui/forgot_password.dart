@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../bloc/auth_bloc.dart';
 
-class ForgotPassword extends StatelessWidget {
-  const ForgotPassword({super.key});
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +16,26 @@ class ForgotPassword extends StatelessWidget {
       body: SafeArea(
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
-            // TODO: implement listener
+            if (state is ForgotPasswordSuccessState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.green,
+                ),
+              );
+              Navigator.pop(context);
+            }
+            if (state is ForgotPasswordFailedState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
           },
+          listenWhen: (previous, current) => current is AuthActionState,
+          buildWhen: (previous, current) => current is! AuthActionState,
           builder: (context, state) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +79,11 @@ class ForgotPassword extends StatelessWidget {
                 MaterialButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
-                  onPressed: (() {}),
+                  onPressed: (() {
+                    BlocProvider.of<AuthBloc>(context).add(
+                        ForgotPasswordRequestEvent(
+                            email: _emailController.text));
+                  }),
                   color: Colors.red,
                   child: const Text("Reset Password",
                       style: TextStyle(

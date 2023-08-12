@@ -20,5 +20,21 @@ class WatchTrailerNavigateEvent extends MovieDetailEvent {
   });
 }
 
+class AddToFavoriteListEvent extends MovieDetailEvent {
+  final MovieModels movie;
+
+  AddToFavoriteListEvent({
+    required this.movie,
+  });
+}
+
+class RemoveFromFavoriteListEvent extends MovieDetailEvent {
+  final MovieModels movie;
+
+  RemoveFromFavoriteListEvent({
+    required this.movie,
+  });
+}
+
 
 

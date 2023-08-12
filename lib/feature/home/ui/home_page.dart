@@ -98,13 +98,12 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 20,
                       ),
-                      Text("Top Rated",
+                      Text("Trending",
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold)),
                       MovieTitle(
-                        moviesModel: successState.topRatedMovies,
-                        homeBloc: homeBloc,
-                      ),
+                          moviesModel: successState.trendingMovies,
+                          homeBloc: homeBloc),
                       SizedBox(
                         height: 20,
                       ),
@@ -119,12 +118,13 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(
                         height: 20,
                       ),
-                      Text("Trending",
+                      Text("Top Rated",
                           style: TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold)),
                       MovieTitle(
-                          moviesModel: successState.trendingMovies,
-                          homeBloc: homeBloc),
+                        moviesModel: successState.topRatedMovies,
+                        homeBloc: homeBloc,
+                      ),
                       SizedBox(
                         height: 20,
                       ),

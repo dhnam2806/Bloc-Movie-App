@@ -3,9 +3,7 @@ part of 'search_bloc.dart';
 @immutable
 abstract class SearchEvent {}
 
-class SearchInitialEvent extends SearchEvent {
-
-}
+class SearchInitialEvent extends SearchEvent {}
 
 class SearchQueryEvent extends SearchEvent {
   final String query;

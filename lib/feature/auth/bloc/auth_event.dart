@@ -34,4 +34,10 @@ class SignUpNavigateEvent extends AuthEvent {}
 
 class SignInNavigateEvent extends AuthEvent {}
 
+class ForgotPasswordRequestEvent extends AuthEvent {
+  final String email;
+
+  ForgotPasswordRequestEvent({required this.email});
+}
+
 class ForgotPasswordNavigateEvent extends AuthEvent {}

@@ -44,17 +44,20 @@ class MovieRepo {
     }
   }
 
-  Future<List<MovieModels>> getMovieDetail(var movie_id) async {
-    var client = http.Client();
+
+  Future<MovieModels> fetchMovieDetails(String movieId) async {
+    final url = Uri.parse('$_baseUrl/movie/$movieId?api_key=$_apiKey');
 
     try {
-      final response = await client.get(
-        Uri.parse('$_baseUrl/movie/${movie_id}?api_key=$_apiKey'),
-      );
-      final List<dynamic> jsonList = json.decode(response.body)['results'];
-      return jsonList.map((json) => MovieModels.fromJson(json)).toList();
-    } catch (e) {
-      throw Exception(e);
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final movieData = json.decode(response.body);
+        return MovieModels.fromJson(movieData);
+      } else {
+        throw Exception('Failed to fetch movie details');
+      }
+    } catch (error) {
+      throw Exception('Failed to fetch movie details');
     }
   }
 
@@ -85,21 +88,4 @@ class MovieRepo {
     }
   }
 
-  Future<List<MovieModels>> getSimilarMovies(int movieId) async {
-    var client = http.Client();
-    List<MovieModels> movies = [];
-    try {
-      final response = await client.get(
-        Uri.parse('$_baseUrl/movie/${movieId}/similar?api_key=$_apiKey'),
-      );
-      var data = json.decode(response.body);
-      List results = data['results'];
-      for (int i = 0; i < results.length; i++) {
-        movies.add(MovieModels.fromJson(results[i]));
-      }
-      return movies;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
 }

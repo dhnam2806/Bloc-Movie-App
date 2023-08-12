@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_app/feature/auth/ui/forgot_password.dart';
 import 'package:movie_app/feature/auth/ui/sign_up.dart';
 import '../../google_navbar.dart';
 import '../bloc/auth_bloc.dart';
@@ -65,6 +66,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const SignUpScreen()));
+              }
+              if (state is ForgotPasswordNavigateState) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ForgotPasswordScreen()));
               }
             },
             listenWhen: (previous, current) => current is AuthActionState,
@@ -169,12 +176,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const ForgotPasswordPage(),
-                          //   ),
-                          // );
+                          context
+                              .read<AuthBloc>()
+                              .add(ForgotPasswordNavigateEvent());
                         },
                         child: const Text("Forgot Password?",
                             style: TextStyle(
