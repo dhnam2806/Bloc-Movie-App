@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
                     style: const TextStyle(fontSize: 24),
                     textAlign: TextAlign.center,
                   ),
-                  user.uid != null ? Text("${user.uid}") : Container(),
+                  Text("${user.uid}"),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     child: const Text('Sign Out'),

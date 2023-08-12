@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:movie_app/data/models/movies_model.dart';
-import 'package:movie_app/repositories/movie_repo.dart';
 
 class FavoriteRepo {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -44,8 +43,6 @@ class FavoriteRepo {
   }
 
   Future<void> switchFavoriteMovie(MovieModels movie) async {
-    // Chuyển đổi trạng thái yêu thích của phim trong Firebase
-
     if (userId != null) {
       final DocumentSnapshot snapshot =
           await _firestore.collection('users').doc(userId).get();
