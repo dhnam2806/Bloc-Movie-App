@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 
 part of 'auth_bloc.dart';
 
@@ -8,13 +9,15 @@ abstract class AuthEvent {
 
 class SignUpRequest extends AuthEvent {
   final String email;
-  final String password;
   final String username;
+  final String password;
+  final String confirmPassword;
 
   SignUpRequest({
     required this.email,
-    required this.password,
     required this.username,
+    required this.password,
+    required this.confirmPassword,
   });
 }
 

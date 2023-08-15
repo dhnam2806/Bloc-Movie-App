@@ -36,7 +36,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   FutureOr<void> favoriteRemoveMovieEvent(
       FavoriteRemoveMovieEvent event, Emitter<FavoriteState> emit) async {
     try {
-      FavoriteRepo().removeMovieFromFavorites(event.movie.id);
+      await FavoriteRepo().removeMovieFromFavorites(event.movie.id);
       emit(FavoriteMoviesLoading());
       emit(FavoriteMovieRemoveMovieState());
       List<String?> movieId = await FavoriteRepo().getFavoriteMovieIds();

@@ -60,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: TextField(
                             controller: controller,
                             decoration: InputDecoration(
@@ -115,16 +115,19 @@ class _SearchPageState extends State<SearchPage> {
                                               successState
                                                   .movieList[index].title,
                                               style: TextStyle(
-                                                fontSize: 20,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
                                             SizedBox(height: 8),
                                             Text(
-                                              "Release Date: " +
-                                                  successState.movieList[index]
-                                                      .releaseDate,
-                                              style: TextStyle(fontSize: 16),
+                                              successState
+                                                  .movieList[index].overview,
+                                              maxLines: 5,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey),
                                             ),
                                           ],
                                         ),

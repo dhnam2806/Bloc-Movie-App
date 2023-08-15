@@ -46,6 +46,7 @@ dependencies:
   cloud_firestore:
   google_fonts:
   email_validator:
+  flutter_slidable: ^3.0.0
   
 
 dev_dependencies:

@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
             final successState = state as HomeLoadingSuccessState;
             return Scaffold(
               appBar: AppBar(
+                automaticallyImplyLeading: false,
                 title: RichText(
                   text: TextSpan(
                     text: "Movie",
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Text("Now Playing",
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
+                              fontSize: 22, fontWeight: FontWeight.bold)),
                       SizedBox(height: 16),
                       CarouselSliderWidget(
                           movieModels: successState.nowPlayingMovies,
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Text("Trending",
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
+                              fontSize: 22, fontWeight: FontWeight.bold)),
                       MovieTitle(
                           moviesModel: successState.trendingMovies,
                           homeBloc: homeBloc),
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         "Popular",
                         style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
+                            fontSize: 22, fontWeight: FontWeight.bold),
                       ),
                       MovieTitle(
                           moviesModel: successState.popularMovies,
@@ -121,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Text("Top Rated",
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
+                              fontSize: 22, fontWeight: FontWeight.bold)),
                       MovieTitle(
                         moviesModel: successState.topRatedMovies,
                         homeBloc: homeBloc,

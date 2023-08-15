@@ -47,7 +47,7 @@ class MovieTitle extends StatelessWidget {
                     Text(
                       moviesModel[index].title,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                       maxLines: 1,

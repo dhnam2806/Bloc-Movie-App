@@ -120,11 +120,13 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                       size: 28,
                                     ),
                                     SizedBox(width: 4),
-                                    Text(
-                                      "Watch Trailer",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22),
+                                    Expanded(
+                                      child: Text(
+                                        "Watch Trailer",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
                                     )
                                   ]),
                             ),
@@ -167,7 +169,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                   style: TextStyle(
                                       height: 1.4,
                                       color: Colors.white70,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.w500),
                                 ),
                               ),
@@ -178,7 +180,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                       successState.movieDetail.releaseDate,
                                   style: TextStyle(
                                     color: Colors.white60,
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -187,7 +189,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               Text(
                                 "Cast",
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../movie_detail/ui/movie_detail_page.dart';
 import '../bloc/favorite_bloc.dart';
 
@@ -63,50 +63,72 @@ class _FavoriteMoviesScreenState extends State<FavoriteMoviesScreen> {
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            favoriteMovies[index].posterPath342,
-                            width: 120,
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                favoriteMovies[index].title,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                favoriteMovies[index].overview,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 5,
-                                style:
-                                    TextStyle(fontSize: 16, color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 12),
-                        GestureDetector(
-                            onTap: () {
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    child: Slidable(
+                      endActionPane: ActionPane(
+                        motion: const ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            onPressed: (context) {
                               favoriteBloc.add(
                                 FavoriteRemoveMovieEvent(
                                   movie: favoriteMovies[index],
                                 ),
                               );
                             },
-                            child: Icon(Icons.favorite, color: Colors.red)),
-                      ],
+                            icon: Icons.delete,
+                            foregroundColor: Colors.red,
+                            label: 'Delete',
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network(
+                              favoriteMovies[index].posterPath342,
+                              width: 120,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  favoriteMovies[index].title,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  favoriteMovies[index].overview,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 4,
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 12),
+                          GestureDetector(
+                              onTap: () {
+                                favoriteBloc.add(
+                                  FavoriteRemoveMovieEvent(
+                                    movie: favoriteMovies[index],
+                                  ),
+                                );
+                              },
+                              child: Icon(Icons.delete, color: Colors.red)),
+                        ],
+                      ),
                     ),
                   ),
                 );

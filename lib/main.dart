@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/feature/auth/ui/auth_main.dart';
 import 'package:movie_app/repositories/auth_repository.dart';
-
 import 'feature/auth/bloc/auth_bloc.dart';
 
 Future<void> main() async {

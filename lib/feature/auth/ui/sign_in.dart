@@ -99,7 +99,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   const Text('Enjoy the world of movies',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 18,
                       )),
 
                   // Email TextField
@@ -183,7 +183,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         child: const Text("Forgot Password?",
                             style: TextStyle(
                               color: Colors.blue,
-                              fontSize: 16,
+                              fontSize: 15,
                             )),
                       ),
                       const SizedBox(width: 20.0),
@@ -229,7 +229,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       const Text("Not a member? ",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 15,
                           )),
                       GestureDetector(
                         onTap: () {
@@ -239,7 +239,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         child: const Text("Sign Up Now",
                             style: TextStyle(
                               color: Colors.blue,
-                              fontSize: 16,
+                              fontSize: 15,
                             )),
                       ),
                     ],

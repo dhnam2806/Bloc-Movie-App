@@ -92,7 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const Text('Enjoy the world of movies',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 18,
                       )),
 
                   // First Name TextField
@@ -233,23 +233,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (_confirmPasswordController !=
-                              _passwordController) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Password doesn't match"),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          } else {
-                            BlocProvider.of<AuthBloc>(context).add(
-                              SignUpRequest(
-                                username: _nameController.text.trim(),
-                                email: _emailController.text.trim(),
-                                password: _passwordController.text.trim(),
-                              ),
-                            );
-                          }
+                          BlocProvider.of<AuthBloc>(context).add(
+                            SignUpRequest(
+                              username: _nameController.text.trim(),
+                              email: _emailController.text.trim(),
+                              password: _passwordController.text.trim(),
+                              confirmPassword:
+                                  _confirmPasswordController.text.trim(),
+                            ),
+                          );
                         },
                         style: ButtonStyle(
                           backgroundColor:

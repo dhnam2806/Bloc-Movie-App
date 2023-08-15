@@ -21,28 +21,52 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<FutureOr<void>> signUpRequest(
       SignUpRequest event, Emitter<AuthState> emit) async {
-    try {
-      await authRepository.signUp(
-        email: event.email,
-        password: event.password,
-        username: event.username,
-      );
-      emit(SignUpSuccessState(message: 'Sign Up Success'));
-    } catch (e) {
-      emit(SignUpFailedState(message: e.toString()));
+    final bool isValidEmail = EmailValidator.validate(event.email);
+    if (event.email.isEmpty ||
+        event.password.isEmpty ||
+        event.username.isEmpty ||
+        event.confirmPassword.isEmpty) {
+      emit(SignUpFailedState(message: 'Please fill all fields'));
+    } else {
+      if (isValidEmail) {
+        if (event.password != event.confirmPassword) {
+          emit(SignUpFailedState(message: 'Password is not match'));
+        }
+        try {
+          await authRepository.signUp(
+            email: event.email,
+            password: event.password,
+            username: event.username,
+          );
+          emit(SignUpSuccessState(message: 'Sign Up Success'));
+        } catch (e) {
+          emit(SignUpFailedState(message: e.toString()));
+        }
+      } else {
+        emit(SignUpFailedState(message: 'Email is not valid'));
+      }
     }
   }
 
   Future<FutureOr<void>> signInRequest(
       SignInRequest event, Emitter<AuthState> emit) async {
-    try {
-      await authRepository.signIn(
-        email: event.email,
-        password: event.password,
-      );
-      emit(SignInSuccessState(message: 'Sign In Success'));
-    } catch (e) {
-      emit(SignInFailedState(message: e.toString()));
+    final bool isValidEmail = EmailValidator.validate(event.email);
+
+    if (isValidEmail) {
+      if (event.email.isEmpty || event.password.isEmpty) {
+        emit(SignInFailedState(message: 'Email or Password is empty'));
+      }
+      try {
+        await authRepository.signIn(
+          email: event.email,
+          password: event.password,
+        );
+        emit(SignInSuccessState(message: 'Sign In Success'));
+      } catch (e) {
+        emit(SignInFailedState(message: e.toString()));
+      }
+    } else {
+      emit(SignInFailedState(message: 'Email is not valid'));
     }
   }
 
