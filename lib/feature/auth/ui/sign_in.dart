@@ -71,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ForgotPasswordScreen()));
+                        builder: (context) => const ForgotPassWordScreen()));
               }
             },
             listenWhen: (previous, current) => current is AuthActionState,
@@ -176,8 +176,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context
-                              .read<AuthBloc>()
+                          BlocProvider.of<AuthBloc>(context)
                               .add(ForgotPasswordNavigateEvent());
                         },
                         child: const Text("Forgot Password?",
@@ -199,7 +198,12 @@ class _SignInScreenState extends State<SignInScreen> {
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
-                          signIn();
+                          BlocProvider.of<AuthBloc>(context).add(
+                            SignInRequest(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ),
+                          );
                         },
                         style: ButtonStyle(
                           backgroundColor:

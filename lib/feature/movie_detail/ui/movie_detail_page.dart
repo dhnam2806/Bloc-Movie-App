@@ -106,30 +106,26 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 movie_id: successState.movieDetail));
                           },
                           child: Container(
-                            width: 200,
+                            width: 180,
                             height: 48,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 color: Colors.red),
-                            child: Container(
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.play_arrow,
-                                      size: 28,
-                                    ),
-                                    SizedBox(width: 4),
-                                    Expanded(
-                                      child: Text(
-                                        "Watch Trailer",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
-                                      ),
-                                    )
-                                  ]),
-                            ),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.play_arrow_sharp,
+                                    size: 28,
+                                  ),
+                                  SizedBox(width: 2),
+                                  Text(
+                                    "Watch Trailer",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  )
+                                ]),
                           ),
                         ),
                       ]),
@@ -179,7 +175,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                   "Release Date: " +
                                       successState.movieDetail.releaseDate,
                                   style: TextStyle(
-                                    color: Colors.white60,
+                                    color: Colors.grey[200],
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500,
                                   ),
